@@ -1,0 +1,10 @@
+---
+type: Batch
+timelimit: ~
+match: Exact
+
+extend:
+  - type: Text
+    path: "./<NAME>"
+    in: /in/*.in
+    out: /out/*.out
