@@ -1,6 +1,9 @@
 import glob
 from pathlib import Path
 import shutil
+import logging
+
+logger = logging.getLogger()
 
 HERE = Path(__file__).parent
 
@@ -14,7 +17,6 @@ def command_copy():
             
             if not dest_item.exists() or dest_item.stat().st_mtime < item.stat().st_mtime:
                 shutil.copy2(item, dest_item)
-        pass
 
 
     Path("./src/bin/").mkdir(parents=True, exist_ok=True)
@@ -26,10 +28,13 @@ def command_copy():
     with open(HERE / "template.rs") as tf:
         template_rs = tf.read()
 
-    for tomlpath in glob.glob(str(libcheck_path / "**/info.toml"), recursive=True):
+    print(str(libcheck_path.resolve() / "**/info.toml"))
+
+    for tomlpath in glob.glob(str(libcheck_path.resolve() / "**/info.toml"), recursive=True):
         if "test" not in Path(tomlpath).parts:
             prob_dir = Path(tomlpath).parent
             prob_name = prob_dir.name
+            print(f"copy: {prob_name}")
 
             rs = Path("./src/bin/%s.rs" % prob_name)
             yaml = Path("./testcases/%s.yml" % prob_name)

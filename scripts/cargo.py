@@ -2,6 +2,10 @@ import glob
 from pathlib import Path
 import shutil
 import tomlkit
+import logging
+
+logger = logging.getLogger()
+
 
 def command_cargo():
     libcheck_path = Path("../../library-checker-problems")
@@ -22,7 +26,7 @@ def command_cargo():
             
             bins.add(prob_name , item)
 
-    cargo_toml["package"]["metadata"]["cargo-compete"]["bin"] = bins
+    cargo_toml["package.metadata.cargo-compete.bin"] = bins
 
     with open("Cargo.toml", "w", encoding="utf8") as f:
         tomlkit.dump(cargo_toml, f)

@@ -1,10 +1,16 @@
 import argparse
-
+import logging
 from scripts import command_generate, command_copy, command_cargo
 
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
 def command_all():
+    logger.info("[generate]")
     command_generate()
+    logger.info("[copy]")
     command_copy()
+    logger.info("[cargo]")
     command_cargo()
 
 if __name__ == '__main__':
